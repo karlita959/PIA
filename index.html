@@ -7,13 +7,16 @@
     <style>
       :root {
         --bg: #0b1020;
-        --bg2: #111827;
-        --panel: #131c2d;
-        --primary: #3b82f6;
-        --green: #22c55e;
-        --text: #e5e7eb;
-        --muted: #94a3b8;
-        --line: rgba(255,255,255,0.08);
+        --panel: #101b2d;
+        --panel-soft: #18263d;
+        --primary: #2d6cdf;
+        --primary-2: #4f8ef7;
+        --green: #34d399;
+        --green-2: #1bbf7a;
+        --text: #edf3ff;
+        --muted: #9fb5d6;
+        --line: rgba(255,255,255,0.09);
+        --shadow: rgba(0,0,0,0.35);
       }
 
       * {
@@ -24,7 +27,7 @@
         margin: 0;
         height: 100%;
         font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(135deg, #0b1020, #111827 60%, #0f172a);
+        background: linear-gradient(180deg, #08101b 0%, #0f1d2f 100%);
         color: var(--text);
       }
 
@@ -32,80 +35,86 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 30px;
+        padding: 28px;
       }
 
       .app {
-        width: 100%;
-        max-width: 1100px;
+        width: min(1150px, 100%);
         height: 760px;
         display: grid;
         grid-template-columns: 220px 1fr;
-        background: rgba(19, 28, 45, 0.9);
+        background: rgba(12, 20, 31, 0.9);
         border: 1px solid var(--line);
         border-radius: 24px;
+        box-shadow: 0 25px 60px var(--shadow);
         overflow: hidden;
-        box-shadow: 0 25px 60px rgba(0,0,0,0.4);
       }
 
       .sidebar {
-        background: rgba(15, 23, 42, 0.9);
+        background: rgba(9, 16, 26, 0.95);
         border-right: 1px solid var(--line);
-        padding: 24px 18px;
+        padding: 20px 18px;
       }
 
       .brand {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 28px;
+        padding: 6px 4px 18px;
       }
 
-      .dot {
+      .brand-dot {
         width: 12px;
         height: 12px;
         border-radius: 50%;
         background: var(--green);
-        box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.75);
       }
 
       .brand h2 {
         margin: 0;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
 
       .menu {
         display: flex;
         flex-direction: column;
         gap: 12px;
+        margin-top: 8px;
       }
 
       .menu-item {
+        appearance: none;
         border: 1px solid var(--line);
+        border-radius: 12px;
         background: transparent;
         color: var(--text);
-        padding: 12px 14px;
-        border-radius: 12px;
         text-align: left;
-        font-size: 0.95rem;
+        font-size: 1rem;
+        padding: 13px 14px;
         cursor: pointer;
+        transition: 0.2s ease;
       }
 
       .menu-item.active {
-        background: linear-gradient(135deg, var(--primary), #2563eb);
-        border: none;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        border-color: transparent;
       }
 
       .chat-panel {
         display: flex;
         flex-direction: column;
         min-height: 0;
+        background: rgba(9, 18, 31, 0.9);
       }
 
       .topbar {
-        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 22px;
         border-bottom: 1px solid var(--line);
-        background: rgba(17, 24, 39, 0.6);
+        background: rgba(11, 18, 30, 0.8);
       }
 
       .title-group {
@@ -121,7 +130,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, var(--primary), #8b5cf6);
+        background: linear-gradient(135deg, #3a7af5, #7a68ff);
         font-weight: bold;
       }
 
@@ -139,8 +148,8 @@
       .messages {
         flex: 1;
         overflow-y: auto;
-        padding: 22px 24px;
-        background: rgba(10, 15, 27, 0.7);
+        padding: 20px 24px 16px;
+        background: rgba(6, 14, 27, 0.7);
       }
 
       .message {
@@ -153,37 +162,40 @@
       }
 
       .bubble {
-        max-width: 70%;
+        max-width: 72%;
         padding: 14px 16px;
         border-radius: 18px;
-        line-height: 1.6;
+        line-height: 1.5;
         font-size: 0.96rem;
       }
 
       .bot .bubble {
-        background: rgba(59, 130, 246, 0.18);
-        border: 1px solid rgba(96, 165, 250, 0.25);
+        background: rgba(44, 79, 128, 0.22);
+        border: 1px solid rgba(96, 165, 250, 0.3);
         border-bottom-left-radius: 6px;
       }
 
       .user .bubble {
-        background: linear-gradient(135deg, var(--green), #10b981);
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: #07130f;
         border-bottom-right-radius: 6px;
       }
 
       .quick-actions {
-        padding: 0 24px 16px;
         display: flex;
-        gap: 10px;
         flex-wrap: wrap;
+        gap: 10px;
+        padding: 0 24px 16px;
+        background: rgba(9, 18, 31, 0.9);
       }
 
       .chip {
+        appearance: none;
         border: 1px solid var(--line);
-        background: rgba(31, 41, 55, 0.9);
+        background: rgba(255,255,255,0.02);
         color: var(--text);
-        padding: 10px 14px;
         border-radius: 999px;
+        padding: 10px 14px;
         cursor: pointer;
       }
 
@@ -192,28 +204,29 @@
         gap: 12px;
         padding: 16px 24px 22px;
         border-top: 1px solid var(--line);
-        background: rgba(17, 24, 39, 0.7);
+        background: rgba(12, 20, 31, 0.85);
       }
 
       .composer input {
         flex: 1;
-        background: rgba(15, 23, 42, 0.9);
         border: 1px solid var(--line);
-        color: var(--text);
+        background: rgba(15, 23, 42, 0.9);
         border-radius: 12px;
         padding: 14px 16px;
+        color: var(--text);
         font-size: 1rem;
         outline: none;
       }
 
       .composer button {
+        appearance: none;
         border: none;
         border-radius: 12px;
         padding: 14px 22px;
-        font-weight: bold;
+        background: linear-gradient(135deg, var(--green), var(--green-2));
+        color: #06130f;
+        font-weight: 700;
         cursor: pointer;
-        background: linear-gradient(135deg, var(--green), #16a34a);
-        color: white;
       }
 
       @media (max-width: 760px) {
@@ -229,7 +242,7 @@
         }
 
         .bubble {
-          max-width: 85%;
+          max-width: 88%;
         }
       }
     </style>
@@ -238,14 +251,14 @@
     <div class="app">
       <aside class="sidebar">
         <div class="brand">
-          <span class="dot"></span>
+          <span class="brand-dot"></span>
           <h2>IA</h2>
         </div>
 
         <div class="menu">
-          <button class="menu-item active">Chat</button>
-          <button class="menu-item">Aprender</button>
-          <button class="menu-item">Ejemplos</button>
+          <button class="menu-item active" type="button">Chat</button>
+          <button class="menu-item" type="button">Aprender</button>
+          <button class="menu-item" type="button">Ejemplos</button>
         </div>
       </aside>
 
@@ -262,21 +275,20 @@
 
         <section class="messages" id="messages">
           <div class="message bot">
-            <div class="bubble">
-              ¡Hola! Soy tu agente de IA para aprender programación. Puedo ayudarte con HTML, CSS, JavaScript, variables, funciones y lógica.
-            </div>
+            <div class="bubble">¡Hola! Soy tu agente de IA para aprender programación. Puedo ayudarte con HTML, CSS, JavaScript, variables, funciones y lógica.</div>
           </div>
         </section>
 
         <div class="quick-actions">
-          <button class="chip">¿Qué es HTML?</button>
-          <button class="chip">Explica JS</button>
-          <button class="chip">¿Qué es una función?</button>
+          <button class="chip" type="button">¿Qué es HTML?</button>
+          <button class="chip" type="button">Explica JS</button>
+          <button class="chip" type="button">¿Qué es una función?</button>
+          <button class="chip" type="button">Dime un ejemplo</button>
         </div>
 
         <div class="composer">
           <input id="input" type="text" placeholder="Escribe tu pregunta..." />
-          <button id="send">Enviar</button>
+          <button id="send" type="button">Enviar</button>
         </div>
       </main>
     </div>
@@ -286,6 +298,7 @@
       const input = document.getElementById("input");
       const sendBtn = document.getElementById("send");
       const chips = document.querySelectorAll(".chip");
+      const menuItems = document.querySelectorAll(".menu-item");
 
       function addMessage(text, sender) {
         const row = document.createElement("div");
@@ -301,72 +314,81 @@
       }
 
       function getResponse(prompt) {
-        const p = prompt.toLowerCase();
+        const text = prompt.toLowerCase();
 
-        if (p.includes("html")) {
-          return "HTML es el lenguaje que se usa para estructurar una página web. Sirve para crear títulos, párrafos, botones, imágenes y secciones.";
+        if (text.includes("html")) {
+          return "HTML es el lenguaje para estructurar una página web. Sirve para crear títulos, párrafos, botones, listas, imágenes y secciones.";
         }
 
-        if (p.includes("css")) {
-          return "CSS se usa para darle estilo a la página: colores, fuentes, márgenes, fondos, tamaños y diseño visual.";
+        if (text.includes("css")) {
+          return "CSS se usa para dar estilo a la página: colores, márgenes, tamaños, fondos, tipografías y diseño visual.";
         }
 
-        if (p.includes("javascript") || p.includes("js")) {
-          return "JavaScript hace que la página sea interactiva. Se usa para mostrar mensajes, validar formularios, cambiar contenido y hacer lógica.";
+        if (text.includes("javascript") || text.includes("js")) {
+          return "JavaScript hace que una página sea interactiva. Permite mostrar mensajes, cambiar texto, validar formularios y responder a acciones del usuario.";
         }
 
-        if (p.includes("variable")) {
-          return 'Una variable es un contenedor para guardar información. Ejemplo: let nombre = "Ana";';
+        if (text.includes("variable")) {
+          return 'Una variable es un espacio para guardar información. Ejemplo: let nombre = "Ana";';
         }
 
-        if (p.includes("funcion")) {
+        if (text.includes("funcion")) {
           return 'Una función es un bloque de código reutilizable. Ejemplo: function saludar() { console.log("Hola"); }';
         }
 
-        if (p.includes("if") || p.includes("condicion")) {
-          return 'La condición if sirve para ejecutar algo si se cumple una regla. Ejemplo: if (edad >= 18) { console.log("Eres mayor de edad"); }';
+        if (text.includes("if") || text.includes("condicion")) {
+          return 'La condición if sirve para ejecutar una acción solo si se cumple una regla. Ejemplo: if (edad >= 18) { console.log("Eres mayor de edad"); }';
         }
 
-        if (p.includes("for") || p.includes("bucle")) {
-          return "Un for sirve para repetir instrucciones varias veces. Se usa mucho para recorrer listas y arreglos.";
+        if (text.includes("for") || text.includes("bucle")) {
+          return "Un bucle for repite instrucciones varias veces. Se usa para recorrer listas o ejecutar acciones repetitivas.";
         }
 
-        if (p.includes("hola")) {
-          return "¡Hola! Puedo ayudarte a aprender HTML, CSS, JavaScript, variables y funciones.";
+        if (text.includes("ejemplo") || text.includes("ejemplos")) {
+          return 'Ejemplo simple: let edad = 20; console.log("Mi edad es " + edad);';
         }
 
-        if (p.includes("ejemplo")) {
-          return 'Ejemplo básico: let edad = 20; console.log("Mi edad es " + edad);';
+        if (text.includes("hola")) {
+          return "¡Hola! Puedo ayudarte con HTML, CSS, JavaScript, variables, funciones y lógica de programación.";
         }
 
         return "Puedo ayudarte con HTML, CSS, JavaScript, variables, funciones y lógica de programación. Pregúntame otra cosa.";
       }
 
-      function sendMessage() {
-        const text = input.value.trim();
+      function processPrompt(rawText) {
+        const text = rawText.trim();
         if (!text) return;
 
         addMessage(text, "user");
-        input.value = "";
-
         const answer = getResponse(text);
-        setTimeout(() => {
-          addMessage(answer, "bot");
-        }, 300);
+        setTimeout(() => addMessage(answer, "bot"), 200);
       }
 
-      sendBtn.addEventListener("click", sendMessage);
+      sendBtn.addEventListener("click", function () {
+        processPrompt(input.value);
+        input.value = "";
+        input.focus();
+      });
 
-      input.addEventListener("keydown", (event) => {
+      input.addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
-          sendMessage();
+          processPrompt(input.value);
+          input.value = "";
+          input.focus();
         }
       });
 
       chips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          input.value = chip.textContent;
-          sendMessage();
+        chip.addEventListener("click", function () {
+          const text = chip.textContent.trim();
+          processPrompt(text);
+        });
+      });
+
+      menuItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          menuItems.forEach((button) => button.classList.remove("active"));
+          item.classList.add("active");
         });
       });
     </script>
